@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conector Web</title>
+    <script src="script.js"></script>
+</head>
+
+<body>
+
+
+    <h2>Smart Farm Dashboard</h2>
+
+    <div id="data">Carregando dados dos sensores.</div>
+
+    <div id="controls">
+        <button onclick="sendCmd('LED')">LED</button>
+        <button onclick="sendCmd('FAN')">Ventilador</button>
+        <button onclick="sendCmd('FEED')">Alimentar</button>
+        <button onclick="sendCmd('WATER')">Regar</button>
+    </div>
+
+</body>
+
+</html>
