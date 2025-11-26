@@ -6,20 +6,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Conector Web</title>
     <script src="script.js"></script>
+    <style>
+        .hidden {
+            display: none;
+        }
+        #legend span {
+            margin-right: 15px;
+        }
+    </style>
 </head>
 
 <body>
+    
+    <h2 id="header">Smart Farm Dashboard</h2>
 
+    <div id="dashboard-view">
+        <div id="data">Carregando dados dos sensores.</div>
 
-    <h2>Smart Farm Dashboard</h2>
+        <div id="controls">
+            <button onclick="sendCmd('LED')">LED</button>
+            <button onclick="sendCmd('FAN')">Ventilador</button>
+            <button onclick="sendCmd('FEED')">Alimentar</button>
+            <button onclick="sendCmd('WATER')">Regar</button>
+            
+            <button onclick="changeView('report')">Ver Relatório Gráfico</button>
+        </div>
+    </div>
 
-    <div id="data">Carregando dados dos sensores.</div>
-
-    <div id="controls">
-        <button onclick="sendCmd('LED')">LED</button>
-        <button onclick="sendCmd('FAN')">Ventilador</button>
-        <button onclick="sendCmd('FEED')">Alimentar</button>
-        <button onclick="sendCmd('WATER')">Regar</button>
+    <div id="report-view" class="hidden">
+        
+        <div id="legend">
+            <span style="color:red;">🌡️ Temperatura</span> |
+            <span style="color:blue;">💧 Umidade</span> |
+            <span style="color:purple;">🌦️ Vapor/Chuva</span> |
+            <span style="color:orange;">💡 Luz</span> |
+            <span style="color:green;">🌱 Solo</span> |
+            <span style="color:cyan;">🚰 Água</span>
+        </div>
+        
+        <canvas id="chartCanvas" width="800" height="400"></canvas>
+        
+        <button onclick="changeView('dashboard')" style="margin-top: 20px;">Voltar ao Dashboard</button>
     </div>
 
 </body>
