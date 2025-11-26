@@ -4,19 +4,239 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conector Web</title>
+    <title>Smart Farm Dashboard</title>
     <script src="script.js"></script>
-    <style>
-        .hidden {
-            display: none;
+
+<style>
+    :root {
+        --primary-color: #007bff;
+        --secondary-color: #28a745;
+        --bg-color: #e9ecef;
+        --card-bg: #ffffff;
+        --text-color: #343a40;
+        --border-color: #dee2e6;
+        --shadow-color: rgba(0, 0, 0, 0.08);
+    }
+
+    [data-theme="dark"] {
+        --primary-color: #4dabf7;
+        --secondary-color: #51cf66;
+        --bg-color: #1a1a1a;
+        --card-bg: #2d2d2d;
+        --text-color: #e9ecef;
+        --border-color: #404040;
+        --shadow-color: rgba(0, 0, 0, 0.3);
+    }
+    
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Título Principal */
+    h2 {
+        color: var(--primary-color);
+        margin-bottom: 30px;
+        padding-bottom: 10px;
+        border-bottom: 3px solid var(--primary-color);
+        width: 100%;
+        max-width: 900px;
+        text-align: center;
+        font-weight: 600;
+    }
+
+    /* Classes de Visibilidade */
+    .hidden {
+        display: none !important;
+    }
+
+    /* --- DASHBOARD VIEW (Cards e Controles) --- */
+    #dashboard-view, #report-view {
+        width: 100%;
+        max-width: 900px;
+        margin-bottom: 30px;
+    }
+
+    /* Área de Dados dos Sensores: GRID */
+    #data {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+
+    /* Estilo para cada "Card" de Sensor */
+    .sensor-card {
+        background-color: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 15px;
+        box-shadow: 0 4px 12px var(--shadow-color);
+        text-align: center;
+        transition: transform 0.2s;
+    }
+    .sensor-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 15px var(--shadow-color);
+    }
+    .sensor-card .label {
+        font-weight: 600;
+        color: var(--primary-color);
+        margin-bottom: 5px;
+        font-size: 0.9em;
+    }
+    .sensor-card .value {
+        font-size: 1.8em;
+        font-weight: bold;
+        color: var(--text-color);
+    }
+    
+    /* Controles (Botões) */
+    #controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+        padding: 10px 0;
+    }
+
+    /* Estilo Comum para Botões */
+    button {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 1em;
+        font-weight: 500;
+        transition: background-color 0.3s ease, transform 0.1s;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    /* Botão de Relatório (destaque verde) */
+    #controls button:last-child {
+        background-color: var(--secondary-color);
+    }
+    #controls button:last-child:hover {
+        background-color: #1e7e34;
+    }
+
+    /* Botão de Voltar (na seção de relatório) */
+    #report-view button {
+        background-color: #6c757d;
+        margin-top: 20px;
+    }
+    #report-view button:hover {
+        background-color: #5a6268;
+    }
+
+    /* --- RELATÓRIO VIEW (Gráfico) --- */
+    #legend {
+        margin-bottom: 20px;
+        padding: 10px;
+        background-color: var(--card-bg);
+        border-radius: 8px;
+        box-shadow: 0 2px 4px var(--shadow-color);
+        text-align: center;
+        font-size: 0.9em;
+    }
+
+    #legend span {
+        font-weight: 500;
+    }
+
+    #chartCanvas {
+        max-width: 100%;
+        height: auto;
+        border: 1px solid var(--border-color);
+        background-color: var(--card-bg);
+        border-radius: 8px;
+        box-shadow: 0 4px 8px var(--shadow-color);
+    }
+
+    .theme-toggle {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background-color: var(--card-bg);
+        border: 1px solid var(--border-color);
+        color: var(--text-color);
+        padding: 10px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 1.2em;
+        box-shadow: 0 2px 8px var(--shadow-color);
+        transition: all 0.3s ease;
+        z-index: 1000;
+    }
+
+    .theme-toggle:hover {
+        transform: scale(1.1);
+    }
+
+    .logout-btn {
+        position: fixed;
+        top: 20px;
+        right: 70px;
+        background-color: var(--card-bg);
+        border: 1px solid var(--border-color);
+        color: var(--text-color);
+        padding: 10px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 1.2em;
+        box-shadow: 0 2px 8px var(--shadow-color);
+        transition: all 0.3s ease;
+        z-index: 1000;
+    }
+
+    .logout-btn:hover {
+        transform: scale(1.1);
+        background-color: #dc3545;
+        color: white;
+    }
+    
+    /* Responsividade para Telas Menores (Celular) */
+    @media (max-width: 600px) {
+        body {
+            padding: 10px;
         }
-        #legend span {
-            margin-right: 15px;
+        h2 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
         }
-    </style>
-</head>
+        #data {
+            grid-template-columns: 1fr; /* Uma coluna em telas pequenas */
+        }
+        .sensor-card .value {
+            font-size: 1.5em;
+        }
+        button {
+            width: 100%; /* Botões ocupam a largura total */
+        }
+        #controls {
+            flex-direction: column;
+        }
+    }
+</style>
+    </head>
 
 <body>
+    
+    <button class="theme-toggle" onclick="toggleTheme()" title="Alternar tema">🌙</button>
+    
+    <button class="logout-btn" onclick="logout()" title="Sair">🚪</button>
     
     <h2 id="header">Smart Farm Dashboard</h2>
 
@@ -24,12 +244,12 @@
         <div id="data">Carregando dados dos sensores.</div>
 
         <div id="controls">
-            <button onclick="sendCmd('LED')">LED</button>
-            <button onclick="sendCmd('FAN')">Ventilador</button>
-            <button onclick="sendCmd('FEED')">Alimentar</button>
-            <button onclick="sendCmd('WATER')">Regar</button>
+            <button onclick="sendCmd('LED')">💡 LED</button>
+            <button onclick="sendCmd('FAN')">💨 Ventilador</button>
+            <button onclick="sendCmd('FEED')">🍚 Alimentar</button>
+            <button onclick="sendCmd('WATER')">💧 Regar</button>
             
-            <button onclick="changeView('report')">Ver Gráfico</button>
+            <button onclick="changeView('report')">📈 Ver Relatório Gráfico</button>
         </div>
     </div>
 
@@ -44,12 +264,11 @@
             <span style="color:cyan;">🚰 Água</span>
         </div>
         
-        <canvas id="chartCanvas" width="800" height="400"></canvas>
+        <canvas id="chartCanvas" width="800" height="400"></canvas> 
         
-        <button onclick="changeView('dashboard')" style="margin-top: 20px;">Voltar ao Dashboard</button>
+        <button onclick="changeView('dashboard')" style="margin-top: 20px;">⬅️ Voltar ao Dashboard</button>
     </div>
 
 </body>
 
 </html>
-
