@@ -10,6 +10,12 @@ let sensorHistory = []; // Histórico para o gráfico
 const HISTORY_LIMIT = 60; // Limite de 60 amostras
 let currentView = 'home'; // Controla o modo atual (home, indicadores, contato, logs)
 
+// RNF03: Sistema de retry e confiabilidade
+let retryCount = 0;
+const MAX_RETRIES = 3;
+let isConnected = true;
+let backoffDelay = 1000; // Delay inicial de 1s
+
 // ===================================
 // 1. FUNÇÕES DE COMANDO E SENSOR
 // ===================================
@@ -85,27 +91,85 @@ async function updateActuatorStatus() {
 
 
 /**
- * Busca e atualiza os dados dos sensores no ESP32.
+ * RNF01: Mostra feedback visual de loading
+ */
+function showLoading() {
+    const dataEl = document.getElementById("data");
+    if (dataEl && currentView === 'home') {
+        dataEl.innerHTML = '<div class="loading">🔄 Carregando dados...</div>';
+    }
+}
+
+/**
+ * RNF01: Mostra feedback de sucesso
+ */
+function showSuccess() {
+    updateConnectionStatus(true);
+    retryCount = 0;
+    backoffDelay = 1000;
+}
+
+/**
+ * RNF01/RNF03: Mostra feedback de erro e estado desconectado
+ */
+function showError(message) {
+    updateConnectionStatus(false);
+    const dataEl = document.getElementById("data");
+    if (dataEl && currentView === 'home') {
+        dataEl.innerHTML = `<div class="error">❌ ${escapeHtml(message)}</div>`;
+    }
+}
+
+/**
+ * RNF04: Proteção contra XSS - escapa HTML
+ */
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+/**
+ * RNF03: Atualiza indicador de conexão
+ */
+function updateConnectionStatus(connected) {
+    isConnected = connected;
+    const statusEl = document.getElementById('connection-status');
+    if (statusEl) {
+        statusEl.textContent = connected ? '🟢 Conectado' : '🔴 Desconectado';
+        statusEl.className = connected ? 'status-connected' : 'status-disconnected';
+    }
+}
+
+/**
+ * RNF03: Busca dados com sistema de retry e backoff
  */
 async function updateSensors() {
     if (isUpdating) return;
     isUpdating = true;
 
+    showLoading();
+
     try {
         const controller = new AbortController();
-        const timeout = setTimeout(() => controller.abort(), 1500);
+        const timeout = setTimeout(() => controller.abort(), 2000); // RNF02: timeout de 2s
         const res = await fetch(`${ESP32_IP}/sensors`, { signal: controller.signal });
         clearTimeout(timeout);
 
-        if (!res.ok) throw new Error("Falha ao obter dados dos sensores.");
+        if (!res.ok) throw new Error(`HTTP ${res.status}: Falha na comunicação`);
 
         const data = await res.json();
+        
+        // RNF04: Validação básica dos dados
+        if (typeof data.temperature !== 'number' || typeof data.humidity !== 'number') {
+            throw new Error('Dados inválidos recebidos');
+        }
         
         // Normaliza a luz e adiciona ao histórico
         data.light = normalizeLight(data.light); 
         addToHistory(data);
         
-        // Atualiza o status dos atuadores (CHAMADA PARA INDICADORES)
+        // Atualiza o status dos atuadores
         updateActuatorStatus(); 
 
         // Atualiza a visualização no modo Home (com Cards)
@@ -113,27 +177,27 @@ async function updateSensors() {
             document.getElementById("data").innerHTML = `
                 <div class="sensor-card">
                     <div class="label">🌡️ Temperatura do Ambiente</div>
-                    <div class="value">${data.temperature} °C</div>
+                    <div class="value">${escapeHtml(data.temperature.toString())} °C</div>
                 </div>
                 <div class="sensor-card">
                     <div class="label">💧 Umidade do Ambiente</div>
-                    <div class="value">${data.humidity}%</div>
+                    <div class="value">${escapeHtml(data.humidity.toString())}%</div>
                 </div>
                 <div class="sensor-card">
                     <div class="label">🌦️ Vapor/Chuva</div>
-                    <div class="value">${data.steam}%</div>
+                    <div class="value">${escapeHtml(data.steam.toString())}%</div>
                 </div>
                 <div class="sensor-card">
                     <div class="label">💡 Luz do Ambiente</div>
-                    <div class="value">${data.light}%</div>
+                    <div class="value">${escapeHtml(data.light.toString())}%</div>
                 </div>
                 <div class="sensor-card">
                     <div class="label">🌱 Umidade do Solo</div>
-                    <div class="value">${data.soil}%</div>
+                    <div class="value">${escapeHtml(data.soil.toString())}%</div>
                 </div>
                 <div class="sensor-card">
                     <div class="label">🚰 Nível da Água</div>
-                    <div class="value">${data.water}%</div>
+                    <div class="value">${escapeHtml(data.water.toString())}%</div>
                 </div>
             `;
         }
@@ -143,12 +207,24 @@ async function updateSensors() {
             renderChart();
         }
 
+        showSuccess();
+
     } catch (erro) {
-        // Exibe erro apenas no modo home para não sobrepor o gráfico
-        if (currentView === 'home') {
-            document.getElementById("data").innerHTML = `<p style="color:red; font-size:1.2em;">Erro ao conectar com o ESP32</p>`;
-        }
         console.error("Erro ao conectar com o ESP32:", erro);
+        
+        // RNF03: Sistema de retry com backoff exponencial
+        if (retryCount < MAX_RETRIES) {
+            retryCount++;
+            showError(`Tentativa ${retryCount}/${MAX_RETRIES} - Reconectando...`);
+            
+            setTimeout(() => {
+                updateSensors();
+            }, backoffDelay);
+            
+            backoffDelay *= 2; // Backoff exponencial
+        } else {
+            showError('Falha na conexão após múltiplas tentativas');
+        }
 
     } finally {
         isUpdating = false;
@@ -156,23 +232,49 @@ async function updateSensors() {
 }
 
 /**
- * Envia um comando para o atuador (LED, FAN, FEED, WATER).
+ * RNF03/RNF04: Envia comando com retry e validação
  * @param {string} cmd - Comando a ser enviado.
  */
 async function sendCmd(cmd) {
-    try {
-        const controller = new AbortController();
-        const timeout = setTimeout(() => controller.abort(), 800);
-        await fetch(`${ESP32_IP}/actuator?cmd=${cmd}`, { signal: controller.signal });
-        clearTimeout(timeout);
-        console.log("Comando enviado:", cmd);
-        
-        // Tenta buscar o novo status imediatamente após o comando
-        updateActuatorStatus();
-
-    }catch(erro){
-        console.warn("Erro ao enviar comando", erro);
+    // RNF04: Validação de entrada
+    const validCmds = ['LED_ON', 'LED_OFF', 'FAN_ON', 'FAN_OFF', 'FEED', 'WATER'];
+    if (!validCmds.includes(cmd)) {
+        console.error('Comando inválido:', cmd);
+        return;
     }
+
+    let attempts = 0;
+    const maxAttempts = 2;
+    
+    while (attempts < maxAttempts) {
+        try {
+            const controller = new AbortController();
+            const timeout = setTimeout(() => controller.abort(), 1000);
+            
+            const response = await fetch(`${ESP32_IP}/actuator?cmd=${encodeURIComponent(cmd)}`, { 
+                signal: controller.signal,
+                method: 'GET' // RNF04: Método explícito
+            });
+            
+            clearTimeout(timeout);
+            
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            
+            console.log("Comando enviado:", cmd);
+            updateActuatorStatus();
+            return; // Sucesso
+            
+        } catch (erro) {
+            attempts++;
+            console.warn(`Tentativa ${attempts} falhou:`, erro);
+            
+            if (attempts < maxAttempts) {
+                await new Promise(resolve => setTimeout(resolve, 500)); // Aguarda 500ms
+            }
+        }
+    }
+    
+    console.error('Falha ao enviar comando após múltiplas tentativas');
 }
 
 // ===================================
