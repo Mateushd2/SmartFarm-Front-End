@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="script-tailwind.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#007bff',
+                        secondary: '#28a745',
+                        'primary-dark': '#4dabf7',
+                        'secondary-dark': '#51cf66'
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.6s ease-out',
+                        'slide-in-left': 'slideInLeft 0.8s ease-out',
+                        'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
+                        'bounce-click': 'bounceClick 0.6s ease'
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        slideInLeft: {
+                            '0%': { opacity: '0', transform: 'translateX(-50px)' },
+                            '100%': { opacity: '1', transform: 'translateX(0)' }
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { boxShadow: '0 0 5px #28a745' },
+                            '50%': { boxShadow: '0 0 20px #28a745, 0 0 30px #28a745' }
+                        },
+                        bounceClick: {
+                            '0%, 20%, 50%, 80%, 100%': { transform: 'translateY(0)' },
+                            '40%': { transform: 'translateY(-10px)' },
+                            '60%': { transform: 'translateY(-5px)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 min-h-screen flex font-sans">
+    <!-- Sidebar -->
+    <div id="sidebar" class="w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 shadow-lg flex flex-col justify-between sticky top-0 h-screen animate-slide-in-left">
+        <!-- Header -->
+        <div class="p-5 border-b border-gray-200 dark:border-gray-700">
+            <h3 class="text-xl font-semibold text-primary dark:text-primary-dark text-center animate-fade-in-up">
+                🌱 Smart Farm
+            </h3>
+        </div>
+        
+        <!-- Navigation -->
+        <nav class="flex-1 p-4 space-y-4 flex flex-col items-center">
+            <button id="dashboard-btn" onclick="changeView('dashboard')" class="p-2 rounded-full bg-blue-500 hover:bg-blue-600 text-white transition-colors duration-300 nav-link" title="Dashboard">
+                🏠
+            </button>
+            <button id="reports-btn" onclick="changeView('report')" class="p-2 rounded-full bg-blue-500 hover:bg-blue-600 text-white transition-colors duration-300 nav-link" title="Relatórios">
+                📈
+            </button>
+        </nav>
+        
+        <!-- Footer -->
+        <div class="p-4 border-t border-gray-200 dark:border-gray-700 space-y-3">
+            <button class="theme-toggle w-full px-4 py-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg hover:scale-105 transition-all duration-300" onclick="toggleTheme()" title="Alternar tema">
+                🌙
+            </button>
+            <button class="logout-btn w-full px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg font-medium hover:scale-105 transition-all duration-300" onclick="logout()" title="Sair">
+                🚪 Sair
+            </button>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div id="main-content" class="flex-1 p-6 overflow-y-auto animate-fade-in-up">
+        <h2 id="header" class="text-3xl font-semibold text-primary dark:text-primary-dark text-center mb-8 pb-3 border-b-4 border-primary dark:border-primary-dark max-w-4xl mx-auto">
+            Smart Farm Dashboard
+        </h2>
+
+        <!-- Dashboard View -->
+        <div id="dashboard-view" class="max-w-6xl mx-auto">
+            <!-- Sensor Cards -->
+            <div id="data" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                <!-- Cards serão inseridos aqui pelo JavaScript -->
+            </div>
+
+            <!-- Actuator Cards -->
+            <div id="controls" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="actuator-card bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 hover:-translate-y-2 hover:shadow-xl transition-all duration-300 animate-fade-in-up">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="text-lg font-semibold text-primary dark:text-primary-dark flex items-center gap-2">
+                            💡 LED
+                        </div>
+                        <span id="status-LED" class="px-3 py-1 rounded-full text-xs font-medium bg-gray-500 text-white">
+                            Desligado
+                        </span>
+                    </div>
+                    <button id="btn-LED" class="w-full px-4 py-3 bg-primary hover:bg-blue-600 dark:bg-primary-dark dark:hover:bg-blue-500 text-white rounded-lg font-medium transition-all duration-300 hover:-translate-y-1 hover:shadow-lg active:animate-bounce-click relative overflow-hidden group" onclick="sendCmd('LED')">
+                        <span class="relative z-10">💡 Controlar LED</span>
+                        <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 rounded-full scale-0 group-hover:scale-150 transition-all duration-500"></div>
+                    </button>
+                </div>
+
+                <div class="actuator-card bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 hover:-translate-y-2 hover:shadow-xl transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.1s">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="text-lg font-semibold text-primary dark:text-primary-dark flex items-center gap-2">
+                            💨 Ventilador
+                        </div>
+                        <span id="status-FAN" class="px-3 py-1 rounded-full text-xs font-medium bg-gray-500 text-white">
+                            Desligado
+                        </span>
+                    </div>
+                    <button id="btn-FAN" class="w-full px-4 py-3 bg-primary hover:bg-blue-600 dark:bg-primary-dark dark:hover:bg-blue-500 text-white rounded-lg font-medium transition-all duration-300 hover:-translate-y-1 hover:shadow-lg active:animate-bounce-click relative overflow-hidden group" onclick="sendCmd('FAN')">
+                        <span class="relative z-10">💨 Controlar Ventilador</span>
+                        <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 rounded-full scale-0 group-hover:scale-150 transition-all duration-500"></div>
+                    </button>
+                </div>
+
+                <div class="actuator-card bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 hover:-translate-y-2 hover:shadow-xl transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.2s">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="text-lg font-semibold text-primary dark:text-primary-dark flex items-center gap-2">
+                            🍚 Alimentar
+                        </div>
+                        <span id="status-FEED" class="px-3 py-1 rounded-full text-xs font-medium bg-gray-500 text-white">
+                            Parado
+                        </span>
+                    </div>
+                    <button id="btn-FEED" class="w-full px-4 py-3 bg-primary hover:bg-blue-600 dark:bg-primary-dark dark:hover:bg-blue-500 text-white rounded-lg font-medium transition-all duration-300 hover:-translate-y-1 hover:shadow-lg active:animate-bounce-click relative overflow-hidden group" onclick="sendCmd('FEED')">
+                        <span class="relative z-10">🍚 Alimentar Agora</span>
+                        <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 rounded-full scale-0 group-hover:scale-150 transition-all duration-500"></div>
+                    </button>
+                </div>
+
+                <div class="actuator-card bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 hover:-translate-y-2 hover:shadow-xl transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.3s">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="text-lg font-semibold text-primary dark:text-primary-dark flex items-center gap-2">
+                            💧 Regar
+                        </div>
+                        <span id="status-WATER" class="px-3 py-1 rounded-full text-xs font-medium bg-gray-500 text-white">
+                            Parado
+                        </span>
+                    </div>
+                    <button id="btn-WATER" class="w-full px-4 py-3 bg-primary hover:bg-blue-600 dark:bg-primary-dark dark:hover:bg-blue-500 text-white rounded-lg font-medium transition-all duration-300 hover:-translate-y-1 hover:shadow-lg active:animate-bounce-click relative overflow-hidden group" onclick="sendCmd('WATER')">
+                        <span class="relative z-10">💧 Regar Agora</span>
+                        <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 rounded-full scale-0 group-hover:scale-150 transition-all duration-500"></div>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Report View -->
+        <div id="report-view" class="hidden max-w-6xl mx-auto">
+            <div id="legend" class="mb-6 p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md text-center text-sm border border-gray-200 dark:border-gray-700">
+                <span class="text-red-500 font-medium">🌡️ Temperatura</span> |
+                <span class="text-purple-500 font-medium">🌦️ Vapor/Chuva</span> |
+                <span class="text-orange-500 font-medium">💡 Luz</span> |
+                <span class="text-green-500 font-medium">🌱 Solo</span> |
+                <span class="text-cyan-500 font-medium">🚰 Água</span>
+            </div>
+            
+            <canvas id="chartCanvas" width="800" height="400" class="w-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-lg shadow-lg"></canvas>
+            
+            <button onclick="changeView('dashboard')" class="mt-6 px-6 py-3 bg-gray-500 hover:bg-gray-600 text-white rounded-lg font-medium transition-all duration-300 hover:-translate-y-1">
+                ⬅️ Voltar ao Dashboard
+            </button>
+        </div>
+    </div>
+
+    <style>
+        .nav-link.active {
+            @apply bg-blue-700 ring-4 ring-blue-300 dark:ring-blue-500;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        .actuator-status.active {
+            @apply bg-secondary dark:bg-secondary-dark;
+            animation: pulseGlow 2s ease-in-out infinite;
+        }
+        
+        .sensor-card {
+            animation: fadeInUp 0.6s ease-out both;
+        }
+        
+        .sensor-card:nth-child(1) { animation-delay: 0.1s; }
+        .sensor-card:nth-child(2) { animation-delay: 0.2s; }
+        .sensor-card:nth-child(3) { animation-delay: 0.3s; }
+        .sensor-card:nth-child(4) { animation-delay: 0.4s; }
+        .sensor-card:nth-child(5) { animation-delay: 0.5s; }
+        .sensor-card:nth-child(6) { animation-delay: 0.6s; }
+    </style>
+</body>
+</html>
