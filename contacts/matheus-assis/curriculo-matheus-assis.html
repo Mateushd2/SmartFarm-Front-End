@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Currículo Profissional – Template CSS Externo</title>
+  
+  <!-- Link para o arquivo CSS externo -->
+  <link rel="stylesheet" href="styles.css">
+  
+</head>
+<body>
+  <!-- Container principal da página -->
+  <div class="container">
+    
+    <!-- ===================== SEÇÃO CABEÇALHO ===================== -->
+    <header class="cabecalho">
+      <div class="foto-container">
+        <img src="imgperfil.jpg" 
+             alt="Foto de perfil" 
+             class="foto-perfil"/>
+      </div>
+      
+      <div class="info-principal">
+        <h1 class="nome-completo">Mateus Assis Jorge Pereira</h1>
+        <h2 class="cargo-objetivo">Desenvolvedor Front-End Júnior | Desenvolvedor Front-End Sênior</h2>
+        <p class="resumo-profissional">
+          Profissional de TI com experiência prática em suporte técnico, manutenção de hardware e software. Atualmente, estou cursando Ciência da Computação e me aprofundando em desenvolvimento Front-End, com estudos em HTML, CSS e JavaScript.
+        </p>
+      </div>
+    </header>
+
+    <!-- ===================== GRID PRINCIPAL ===================== -->
+    <div class="grid-principal">
+      
+      <!-- COLUNA ESQUERDA -->
+      <aside class="coluna-esquerda">
+        
+        <!-- INFORMAÇÕES DE CONTATO -->
+        <section class="secao-contato">
+          <h3 class="titulo-secao">
+            <i class="icone">📞</i>
+            Contato
+          </h3>
+          <div class="lista-contato">
+            <div class="item-contato">
+              <span class="label">Email:</span>
+              <a href="mailto:mateusaj10@gmail.com" class="link-contato">
+                <span class="__cf_email__" data-cfemail="6c1f09194209010d05002c091409011c0003420f0301">mateusaj10@gmail.com</span>
+              </a>
+            </div>
+            <div class="item-contato">
+              <span class="label">Telefone:</span>
+              <span class="valor">(51) 99681-1589</span>
+            </div>
+            <div class="item-contato">
+              <span class="label">LinkedIn:</span>
+              <a href="https://www.linkedin.com/in/mateus-assis-a103672ba/" class="link-contato">linkedin.com/in/mateus-assis-a103672ba/</a>
+            </div>
+            <div class="item-contato">
+              <span class="label">GitHub:</span>
+              <a href="https://github.com/mateushd2" class="link-contato">github.com/mateushd2</a>
+            </div>
+            <div class="item-contato">
+              <span class="label">Localização:</span>
+              <span class="valor">Canoas - RS</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- HABILIDADES TÉCNICAS -->
+        <section class="secao-habilidades">
+          <h3 class="titulo-secao">
+                <i class="icone">🛠️</i>
+                Habilidades Técnicas
+          </h3>
+          <div class="grid-habilidades">
+             <span class="chip-habilidade chip-html">HTML5</span>
+             <span class="chip-habilidade chip-css">CSS3</span>
+             <span class="chip-habilidade chip-sql">SQL</span>
+             <span class="chip-habilidade chip-git">Git/GitHub</span>
+             <span class="chip-habilidade chip-javascript">JavaScript</span>
+             <span class="chip-habilidade chip-python">Python</span>
+          </div>
+        </section>
+
+        <!-- IDIOMAS -->
+        <section class="secao-idiomas">
+          <h3 class="titulo-secao">
+            <i class="icone">🌐</i>
+            Idiomas
+          </h3>
+          <div class="lista-idiomas">
+            <div class="item-idioma">
+              <span class="nome-idioma">Português</span>
+              <div class="barra-nivel">
+                <div class="nivel nivel-nativo"></div>
+              </div>
+              <span class="texto-nivel">Nativo</span>
+            </div>
+            <div class="item-idioma">
+              <span class="nome-idioma">Inglês</span>
+              <div class="barra-nivel">
+                <div class="nivel nivel-avancado"></div>
+              </div>
+              <span class="texto-nivel">Intermediário</span>
+            </div>
+            <div class="item-idioma">
+              <span class="nome-idioma">Espanhol</span>
+              <div class="barra-nivel">
+                <div class="nivel nivel-intermediario"></div>
+              </div>
+              <span class="texto-nivel">Intermediário</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- CERTIFICAÇÕES -->
+        <section class="secao-certificacoes">
+          <h3 class="titulo-secao">
+            <i class="icone">🏆</i>
+            Certificações
+          </h3>
+          <ul class="lista-certificacoes">
+            <li class="item-certificacao">
+              <strong>Certificação Segurança em TI - Bradesco</strong>
+              <span class="data-cert">2025</span>
+            </li>
+            <li class="item-certificacao">
+              <strong>Python Básico - Bradesco</strong>
+              <span class="data-cert">2025</span>
+            </li>
+            <li class="item-certificacao">
+              <strong>Primeiros passos no Front-End - SenaiPlay</strong>
+              <span class="data-cert">2025</span>
+            </li>
+          </ul>
+        </section>
+      </aside>
+
+      <!-- COLUNA DIREITA -->
+      <main class="coluna-direita">
+        
+        <!-- EXPERIÊNCIA PROFISSIONAL -->
+        <section class="secao-experiencia">
+          <h3 class="titulo-secao-principal">
+            <i class="icone-principal">💼</i>
+            Experiência Profissional
+          </h3>
+          
+          <div class="timeline-experiencia">
+            <article class="item-experiencia">
+              <div class="marcador-timeline"></div>
+              <div class="conteudo-experiencia">
+                <div class="cabecalho-experiencia">
+                  <h4 class="cargo">Auxiliar de Manutenção de Computadores</h4>
+                  <span class="empresa">WGS Infocell</span>
+                </div>
+                <p class="periodo">Julho 2021 - Setembro 2024</p>
+                <ul class="responsabilidades">
+                  <li>Manutenção de Computadores</li>
+                  <li>Atendimento ao cliente</li>
+                  <li>Instalação de sistemas</li>
+                  <li>Upgrades em computadores</li>
+                </ul>
+                <div class="tags-tecnologias">
+                  <span class="tag-tech">Windows</span>
+                  <span class="tag-tech">Linux</span>
+                  <span class="tag-tech">Hardware</span>
+                  <span class="tag-tech">Suporte Técnico</span>
+              </div>
+            </article>
+
+            <article class="item-experiencia">
+              <div class="marcador-timeline"></div>
+              <div class="conteudo-experiencia">
+                <div class="cabecalho-experiencia">
+                  <h4 class="cargo">Estágio Suporte de TI</h4>
+                  <span class="empresa">Conselho Regional de Psicologia</span>
+                </div>
+                <p class="periodo">Setembro 2024 - o momento</p>
+                <ul class="responsabilidades">
+                  <li>Atendimento N1</li>
+                  <li>Rotina administrativa de TI</li>
+                </ul>
+                <div class="tags-tecnologias">
+                  <span class="tag-tech">Windows</span>
+                  <span class="tag-tech">Suporte Técnico</span>
+                  <span class="tag-tech">Administração de Redes</span>
+              </div>
+            </article>
+
+          </div>
+        </section>
+
+        <!-- FORMAÇÃO ACADÊMICA -->
+        <section class="secao-formacao">
+          <h3 class="titulo-secao-principal">
+            <i class="icone-principal">🎓</i>
+            Formação Acadêmica
+          </h3>
+          
+          <div class="lista-formacao">
+            <div class="item-formacao">
+              <div class="info-curso">
+                <h4 class="nome-curso">Bacharelado em Ciência da Computação</h4>
+                <p class="instituicao">Universidade La Salle</p>
+                <p class="periodo-curso">2024 - 2027</p>
+              </div>
+              <div class="status-curso">
+                <span class="badge-cursando">Em Andamento</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- PROJETOS DESTACADOS -->
+        <section class="secao-projetos">
+          <h3 class="titulo-secao-principal">
+            <i class="icone-principal">🚀</i>
+            Projetos Destacados
+          </h3>
+          
+          <div class="grid-projetos">
+            <div class="card-projeto">
+              <h4 class="nome-projeto">🐍 Snake Game Web</h4>
+              <p class="descricao-projeto">
+                Este projeto foi criado como uma forma de praticar e consolidar os fundamentos do desenvolvimento web, utilizando apenas as tecnologias essenciais: HTML, CSS e JavaScript puro.
+              </p>
+              <div class="tecnologias-projeto">
+                <span class="tech-tag">HTML</span>
+                <span class="tech-tag">CSS5</span>
+                <span class="tech-tag">JavaScript</span>
+              </div>
+              <div class="links-projeto">
+                <a href="https://github.com/Mateushd2/SnakeGameWeb-" class="link-projeto">GitHub</a>
+              </div>
+            </div>
+
+            <div class="card-projeto">
+              <h4 class="nome-projeto">Sistemas de Chamados (apenas Front-End)</h4>
+              <p class="descricao-projeto">
+                Este é um projeto de frontend para um sistema de chamados, desenvolvido para simular a criação, visualização e gerenciamento de tickets de suporte.
+                O projeto é construído com HTML, CSS (usando Tailwind CSS) e JavaScript puro.
+              </p>
+              <div class="tecnologias-projeto">
+                <span class="tech-tag">HTML</span>
+                <span class="tech-tag">CSS</span>
+                <span class="tech-tag">JavaScript</span>
+              </div>
+              <div class="links-projeto">
+                <a href="https://github.com/Mateushd2/SistemadeChamados" class="link-projeto">GitHub</a>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- ===================== RODAPÉ COM AÇÕES ===================== -->
+    <footer class="rodape">
+      <div class="acoes-curriculo">
+        <a href="#" class="btn-acao btn-primario">
+          <i class="icone-btn">📄</i>
+          Baixar PDF
+        </a>
+        <a href="https://github.com/Mateushd2" class="btn-acao btn-secundario">
+          <i class="icone-btn">💼</i>
+          Ver Portfólio
+        </a>
+        <a href="mailto:mateusaj10@gmail.com" class="btn-acao btn-secundario">
+          <i class="icone-btn">📧</i>
+          Entrar em Contato
+        </a>
+      </div>
+      
+      <div class="info-rodape">
+        <p>&copy; 2025 Mateus Assis Jorge Pereira. Todos os direitos reservados.</p>
+        <p class="atualizacao">Última atualização: Outubro 2025</p>
+      </div>
+    </footer>
+  </div>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body>
+</html>
