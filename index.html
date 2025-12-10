@@ -923,42 +923,6 @@
                             </tr>
                         </thead>
                         <tbody id="logsTableBody">
-                            <tr>
-                                <td>2024-01-15 14:30:25</td>
-                                <td>aluno</td>
-                                <td>LED ON</td>
-                                <td><span class="status-success">Sucesso</span></td>
-                            </tr>
-                            <tr>
-                                <td>2024-01-15 14:25:10</td>
-                                <td>professor</td>
-                                <td>Visualizar Sensores</td>
-                                <td><span class="status-success">Sucesso</span></td>
-                            </tr>
-                            <tr>
-                                <td>2024-01-15 14:20:05</td>
-                                <td>aluno</td>
-                                <td>Ventilador OFF</td>
-                                <td><span class="status-error">Falha</span></td>
-                            </tr>
-                            <tr>
-                                <td>2024-01-14 16:45:30</td>
-                                <td>aluno</td>
-                                <td>LED OFF</td>
-                                <td><span class="status-success">Sucesso</span></td>
-                            </tr>
-                            <tr>
-                                <td>2024-01-14 16:40:15</td>
-                                <td>professor</td>
-                                <td>Acessar Dashboard</td>
-                                <td><span class="status-success">Sucesso</span></td>
-                            </tr>
-                            <tr>
-                                <td>2024-01-14 15:30:22</td>
-                                <td>aluno</td>
-                                <td>Ventilador ON</td>
-                                <td><span class="status-error">Falha</span></td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -977,6 +941,9 @@
                 window.location.href = 'login.html';
                 return;
             }
+
+            // Log de entrada no sistema
+            setTimeout(() => addLog('Acesso ao Dashboard', 'Sucesso'), 100);
 
             // Exibir mensagem de boas-vindas
             if (userRole === 'professor') {
@@ -1072,6 +1039,86 @@
             if (dateFilter) dateFilter.addEventListener('change', filterLogs);
             if (themeToggleTop) themeToggleTop.addEventListener('click', toggleTheme);
         });
+    
+    // Sistema de logs persistente
+    function addLog(action, status) {
+        const username = localStorage.getItem("username") || "desconhecido";
+        const d = new Date();
+        const timestamp = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}:${String(d.getSeconds()).padStart(2,'0')}`;
+
+        const logEntry = { timestamp, username, action, status };
+        
+        let logs = JSON.parse(localStorage.getItem('smartfarm_logs') || '[]');
+        logs.unshift(logEntry);
+        logs = logs.slice(0, 100);
+        localStorage.setItem('smartfarm_logs', JSON.stringify(logs));
+        
+        loadLogs();
+    }
+
+    function loadLogs() {
+        const logsTableBody = document.getElementById("logsTableBody");
+        if (!logsTableBody) return;
+        
+        const logs = JSON.parse(localStorage.getItem('smartfarm_logs') || '[]');
+        logsTableBody.innerHTML = '';
+        
+        logs.forEach(log => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${log.timestamp}</td>
+                <td>${log.username}</td>
+                <td>${log.action}</td>
+                <td><span class="${log.status === "Sucesso" ? "status-success" : "status-error"}">${log.status}</span></td>
+            `;
+            logsTableBody.appendChild(row);
+        });
+    }
+
+    // Carregar logs ao trocar para view de logs
+    function changeView(view) {
+        currentView = view;
+        
+        const views = ['home-view', 'indicadores-view', 'contato-view', 'logs-view'];
+        views.forEach(viewId => {
+            const element = document.getElementById(viewId);
+            if (element) element.classList.add('hidden');
+        });
+        
+        const buttons = ['home-btn', 'indicadores-btn', 'contato-btn', 'logs-btn'];
+        buttons.forEach(btnId => {
+            const btn = document.getElementById(btnId);
+            if (btn) btn.classList.remove('active');
+        });
+        
+        const header = document.getElementById('header');
+        
+        switch(view) {
+            case 'home':
+                document.getElementById('home-view')?.classList.remove('hidden');
+                document.getElementById('home-btn')?.classList.add('active');
+                if (header) header.innerText = "Home";
+                break;
+            case 'indicadores':
+                document.getElementById('indicadores-view')?.classList.remove('hidden');
+                document.getElementById('indicadores-btn')?.classList.add('active');
+                if (header) header.innerText = "📊 Indicadores/KPIs";
+                renderChart();
+                break;
+            case 'contato':
+                document.getElementById('contato-view')?.classList.remove('hidden');
+                document.getElementById('contato-btn')?.classList.add('active');
+                if (header) header.innerText = "👤 Contato/CV";
+                break;
+            case 'logs':
+                document.getElementById('logs-view')?.classList.remove('hidden');
+                document.getElementById('logs-btn')?.classList.add('active');
+                if (header) header.innerText = "📋 Logs/Auditoria";
+                loadLogs();
+                break;
+        }
+    }
+
     </script>
 
 </body>
