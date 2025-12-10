@@ -243,6 +243,15 @@ async function sendCmd(cmd) {
         return;
     }
 
+    const deviceNames = {
+        LED_ON: "LED Ligado",
+        LED_OFF: "LED Desligado", 
+        FAN_ON: "Ventilador Ligado",
+        FAN_OFF: "Ventilador Desligado",
+        FEED: "Alimentar",
+        WATER: "Regar"
+    };
+
     let attempts = 0;
     const maxAttempts = 2;
     
@@ -261,6 +270,12 @@ async function sendCmd(cmd) {
             if (!response.ok) throw new Error(`HTTP ${response.status}`);
             
             console.log("Comando enviado:", cmd);
+            
+            // Registrar log de sucesso
+            if (typeof addLog === 'function') {
+                addLog(deviceNames[cmd] || cmd, "Sucesso");
+            }
+            
             updateActuatorStatus();
             return; // Sucesso
             
@@ -272,6 +287,11 @@ async function sendCmd(cmd) {
                 await new Promise(resolve => setTimeout(resolve, 500)); // Aguarda 500ms
             }
         }
+    }
+    
+    // Registrar log de falha
+    if (typeof addLog === 'function') {
+        addLog(deviceNames[cmd] || cmd, "Falha");
     }
     
     console.error('Falha ao enviar comando após múltiplas tentativas');
