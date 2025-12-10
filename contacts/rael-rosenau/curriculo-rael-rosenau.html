@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Currículo Profissional – Template CSS Externo</title>
+
+  <!-- Link para o arquivo CSS externo -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <!-- Container principal da página -->
+  <div class="container">
+
+    <!-- ===================== SEÇÃO CABEÇALHO ===================== -->
+    <header class="cabecalho">
+      <div class="foto-container">
+        <img src="foto-perfil.jpeg" alt="Foto de perfil" class="foto-perfil" />
+      </div>
+
+      <div class="info-principal">
+        <h1 class="nome-completo">RAEL ROSENAU MACEDO</h1>
+        <h2 class="cargo-objetivo">
+          Profissional em transição para a área de Tecnologia da Informação, com experiência em suporte técnico, desenvolvimento web e análise de dados. Busco oportunidade para aplicar conhecimentos em programação, automação e análise, contribuindo para o crescimento da empresa e meu desenvolvimento profissional.
+        </h2>
+      </div>
+    </header>
+
+    <!-- ===================== GRID PRINCIPAL ===================== -->
+    <div class="grid-principal">
+
+      <!-- COLUNA ESQUERDA -->
+      <aside class="coluna-esquerda">
+
+        <!-- INFORMAÇÕES DE CONTATO -->
+        <section class="secao-contato">
+          <h3 class="titulo-secao">
+            <i class="icone">📞</i>
+            Contato
+          </h3>
+          <div class="lista-contato">
+            <div class="item-contato">
+              <span class="label">Email:</span>
+              <a href="mailto:rael.202413327@unilasalle.edu.br" class="link-contato">
+                rael.202413327@unilasalle.edu.br
+              </a>
+            </div>
+            <div class="item-contato">
+              <span class="label">Telefone:</span>
+              <span class="valor">(51) 99732-0850</span>
+            </div>
+            <div class="item-contato">
+              <span class="label">LinkedIn:</span>
+              <a href="https://www.linkedin.com/in/rael-macedo" target="_blank" class="link-contato">linkedin.com/in/rael-macedo</a>
+            </div>
+            <div class="item-contato">
+              <span class="label">GitHub:</span>
+              <a href="https://github.com/raelmacedo" target="_blank" class="link-contato">github.com/raelmacedo</a>
+            </div>
+            <div class="item-contato">
+              <span class="label">Localização:</span>
+              <span class="valor">Sertão Santana - RS</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- HABILIDADES TÉCNICAS -->
+        <section class="secao-habilidades">
+          <h3 class="titulo-secao">
+            <i class="icone">🛠️</i>
+            Habilidades Técnicas
+          </h3>
+          <div class="grid-habilidades">
+            <span class="chip-habilidade">HTML5</span>
+            <span class="chip-habilidade">CSS3</span>
+            <span class="chip-habilidade">JavaScript</span>
+            <span class="chip-habilidade">React</span>
+            <span class="chip-habilidade">Node.js</span>
+            <span class="chip-habilidade">Git/GitHub</span>
+            <span class="chip-habilidade">SQL</span>
+            <span class="chip-habilidade">Python</span>
+          </div>
+        </section>
+
+        <!-- IDIOMAS -->
+        <section class="secao-idiomas">
+          <h3 class="titulo-secao">
+            <i class="icone">🌐</i>
+            Idiomas
+          </h3>
+          <div class="lista-idiomas">
+            <div class="item-idioma">
+              <span class="nome-idioma">Português</span>
+              <div class="barra-nivel">
+                <div class="nivel nivel-nativo"></div>
+              </div>
+              <span class="texto-nivel">Nativo</span>
+            </div>
+            <div class="item-idioma">
+              <span class="nome-idioma">Inglês</span>
+              <div class="barra-nivel">
+                <div class="nivel nivel-avancado"></div>
+              </div>
+              <span class="texto-nivel">Avançado</span>
+            </div>
+            <div class="item-idioma">
+              <span class="nome-idioma">Espanhol</span>
+              <div class="barra-nivel">
+                <div class="nivel nivel-intermediario"></div>
+              </div>
+              <span class="texto-nivel">Intermediário</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- CERTIFICAÇÕES -->
+        <section class="secao-certificacoes">
+          <h3 class="titulo-secao">
+            <i class="icone">🏆</i>
+            Certificações
+          </h3>
+          <ul class="lista-certificacoes">
+            <li class="item-certificacao">
+              <strong>Certificação em Segurança da Informação - RS TI</strong>
+              <span class="data-cert">2023</span>
+            </li>
+            <li class="item-certificacao">
+              <strong>Formação em Desenvolvimento Web - PUCRS</strong>
+              <span class="data-cert">2022</span>
+            </li>
+            <li class="item-certificacao">
+              <strong>Curso de Automação com Python - SENAI</strong>
+              <span class="data-cert">2021</span>
+            </li>
+          </ul>
+        </section>
+      </aside>
+
+      <!-- COLUNA DIREITA -->
+      <main class="coluna-direita">
+
+        <!-- EXPERIÊNCIA PROFISSIONAL -->
+        <section class="secao-experiencia">
+          <h3 class="titulo-secao-principal">
+            <i class="icone-principal">💼</i>
+            Experiência Profissional
+          </h3>
+
+          <div class="timeline-experiencia">
+            <article class="item-experiencia">
+              <div class="marcador-timeline"></div>
+              <div class="conteudo-experiencia">
+                <div class="cabecalho-experiencia">
+                  <h4 class="cargo">Analista de Suporte Técnico Júnior</h4>
+                  <span class="empresa">TechNova RS</span>
+                </div>
+                <p class="periodo">Janeiro 2019 - Dezembro 2021</p>
+                <ul class="responsabilidades">
+                  <li>Atendimento e suporte a usuários finais em sistemas internos.</li>
+                  <li>Diagnóstico e resolução de problemas técnicos básicos.</li>
+                  <li>Manutenção de hardware e software em estações de trabalho.</li>
+                  <li>Treinamento básico para equipe em novas ferramentas.</li>
+                </ul>
+                <div class="tags-tecnologias">
+                  <span class="tag-tech">Suporte Técnico</span>
+                  <span class="tag-tech">Windows</span>
+                  <span class="tag-tech">Linux</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="item-experiencia">
+              <div class="marcador-timeline"></div>
+              <div class="conteudo-experiencia">
+                <div class="cabecalho-experiencia">
+                  <h4 class="cargo">Assistente de Desenvolvimento Web</h4>
+                  <span class="empresa">Web Creators</span>
+                </div>
+                <p class="periodo">Janeiro 2022 - Dezembro 2023</p>
+                <ul class="responsabilidades">
+                  <li>Criação e manutenção de sites institucionais.</li>
+                  <li>Implementação de layouts responsivos com HTML, CSS e JavaScript.</li>
+                  <li>Colaboração com designers para melhoria da experiência do usuário.</li>
+                  <li>Otimização básica de SEO para melhor ranqueamento.</li>
+                </ul>
+                <div class="tags-tecnologias">
+                  <span class="tag-tech">HTML</span>
+                  <span class="tag-tech">CSS</span>
+                  <span class="tag-tech">JavaScript</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="item-experiencia">
+              <div class="marcador-timeline"></div>
+              <div class="conteudo-experiencia">
+                <div class="cabecalho-experiencia">
+                  <h4 class="cargo">Estagiário em Análise de Dados</h4>
+                  <span class="empresa">Data Insights</span>
+                </div>
+                <p class="periodo">Janeiro 2024 - Presente</p>
+                <ul class="responsabilidades">
+                  <li>Coleta e limpeza de dados para projetos internos.</li>
+                  <li>Suporte na criação de relatórios utilizando Excel e Power BI.</li>
+                  <li>Análise preliminar para apoiar decisões estratégicas.</li>
+                </ul>
+                <div class="tags-tecnologias">
+                  <span class="tag-tech">Excel</span>
+                  <span class="tag-tech">Power BI</span>
+                  <span class="tag-tech">SQL</span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- FORMAÇÃO ACADÊMICA -->
+        <section class="secao-formacao">
+          <h3 class="titulo-secao-principal">
+            <i class="icone-principal">🎓</i>
+            Formação Acadêmica
+          </h3>
+
+          <div class="lista-formacao">
+            <div class="item-formacao">
+              <div class="info-curso">
+                <h4 class="nome-curso">Bacharelado em Ciência da Computação</h4>
+                <p class="instituicao">Universidade La Salle, Canoas - RS</p>
+                <p class="periodo-curso">2018 - 2022</p>
+              </div>
+              <div class="status-curso">
+                <span class="badge-concluido">Concluído</span>
+              </div>
+            </div>
+
+            <div class="item-formacao">
+              <div class="info-curso">
+                <h4 class="nome-curso">Curso Técnico em Redes de Computadores</h4>
+                <p class="instituicao">Instituto Federal do Rio Grande do Sul (IFRS)</p>
+                <p class="periodo-curso">2016 - 2018</p>
+              </div>
+              <div class="status-curso">
+                <span class="badge-concluido">Concluído</span>
+              </div>
+            </div>
+
+            <div class="item-formacao">
+              <div class="info-curso">
+                <h4 class="nome-curso">MBA em Gestão de Tecnologia da Informação</h4>
+                <p class="instituicao">Universidade Feevale</p>
+                <p class="periodo-curso">2023 - 2024</p>
+              </div>
+              <div class="status-curso">
+                <span class="badge-cursando">Em Andamento</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- PROJETOS DESTACADOS -->
+        <section class="secao-projetos">
+          <h3 class="titulo-secao-principal">
+            <i class="icone-principal">🚀</i>
+            Projetos Destacados
+          </h3>
+
+          <div class="grid-projetos">
+            <div class="card-projeto">
+              <h4 class="nome-projeto">Site Portfolio Pessoal</h4>
+              <p class="descricao-projeto">
+                Desenvolvimento de um site pessoal para apresentar projetos, currículo e blog de tecnologia.
+              </p>
+              <div class="tecnologias-projeto">
+                <span class="tech-tag">HTML</span>
+                <span class="tech-tag">CSS</span>
+                <span class="tech-tag">JavaScript</span>
+              </div>
+              <div class="links-projeto">
+                <a href="#" class="link-projeto">Ver Projeto</a>
+                <a href="#" class="link-projeto">GitHub</a>
+              </div>
+            </div>
+
+            <div class="card-projeto">
+              <h4 class="nome-projeto">App Simples de Lista de Tarefas</h4>
+              <p class="descricao-projeto">
+                Aplicativo mobile para gerenciar tarefas diárias com funcionalidades básicas de CRUD.
+              </p>
+              <div class="tecnologias-projeto">
+                <span class="tech-tag">React Native</span>
+                <span class="tech-tag">Expo</span>
+              </div>
+              <div class="links-projeto">
+                <a href="#" class="link-projeto">Ver Projeto</a>
+                <a href="#" class="link-projeto">GitHub</a>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- ===================== RODAPÉ COM AÇÕES ===================== -->
+    <footer class="rodape">
+      <div class="acoes-curriculo">
+        <a href="#" class="btn-acao btn-primario">
+          <i class="icone-btn">📄</i>
+          Baixar PDF
+        </a>
+        <a href="#" class="btn-acao btn-secundario">
+          <i class="icone-btn">💼</i>
+          Ver Portfólio
+        </a>
+        <a href="mailto:rael.202413327@unilasalle.edu.br" class="btn-acao btn-secundario">
+          <i class="icone-btn">📧</i>
+          Entrar em Contato
+        </a>
+      </div>
+
+      <div class="info-rodape">
+        <p>&copy; 2025 Rael Rosenau Macedo. Todos os direitos reservados.</p>
+        <p class="atualizacao">Última atualização: Outubro 2025</p>
+      </div>
+    </footer>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,676 @@
+/* ===================== RESET E BASE ===================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+  color: #e2e8f0;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ===================== CONTAINER PRINCIPAL ===================== */
+.container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #1a202c;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+  min-height: calc(100vh - 40px);
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* ===================== CABEÇALHO PRINCIPAL ===================== */
+.cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  background: linear-gradient(135deg, #322659, #3b2760);
+  color: #f7fafc;
+  padding: 40px;
+  border-radius: 15px;
+  margin-bottom: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+}
+
+/* ===================== FOTO DE PERFIL ===================== */
+.foto-container {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.foto-perfil {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;              /* redonda */
+  border: 4px solid #9f7aea;       /* borda roxa */
+  object-fit: cover;               /* mantém proporção */
+  object-position: center;         /* centraliza rosto */
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.foto-perfil:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.7);
+}
+
+/* ===================== INFORMAÇÕES PRINCIPAIS ===================== */
+.info-principal {
+  flex: 1;
+}
+
+.nome-completo {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #f7fafc;
+}
+
+.cargo-objetivo {
+  font-size: 1.3rem;
+  font-weight: 400;
+  opacity: 0.9;
+  margin-bottom: 15px;
+  color: #cbd5e0;
+}
+
+.resumo-profissional {
+  font-size: 1rem;
+  opacity: 0.8;
+  line-height: 1.6;
+  color: #a0aec0;
+}
+
+/* ===================== GRID PRINCIPAL ===================== */
+.grid-principal {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+@media (max-width: 968px) {
+  .grid-principal {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===================== COLUNA ESQUERDA (SIDEBAR) ===================== */
+.coluna-esquerda {
+  background: #2d3748;
+  padding: 25px;
+  border-radius: 15px;
+  border-left: 4px solid #6b21a8;
+  height: fit-content;
+  position: sticky;
+  top: 20px;
+}
+
+/* ===================== TÍTULOS DAS SEÇÕES ===================== */
+.titulo-secao {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #edf2f7;
+  margin-bottom: 15px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #4a5568;
+}
+
+.icone {
+  font-size: 1.1rem;
+  color: #a0aec0;
+}
+
+/* ===================== SEÇÃO DE CONTATO ===================== */
+.secao-contato {
+  margin-bottom: 25px;
+}
+
+.lista-contato {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.item-contato {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #718096;
+}
+
+.link-contato {
+  color: #9f7aea;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.link-contato:hover {
+  text-decoration: underline;
+}
+
+.valor {
+  color: #e2e8f0;
+  font-weight: 500;
+}
+
+/* ===================== HABILIDADES TÉCNICAS ===================== */
+.secao-habilidades {
+  margin-bottom: 25px;
+}
+
+.grid-habilidades {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip-habilidade {
+  background: linear-gradient(135deg, #6b21a8, #4c1d95);
+  color: #f7fafc;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: transform 0.2s ease;
+}
+
+.chip-habilidade:hover {
+  transform: translateY(-2px);
+}
+
+/* ===================== SEÇÃO DE IDIOMAS ===================== */
+.secao-idiomas {
+  margin-bottom: 25px;
+}
+
+.lista-idiomas {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.item-idioma {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nome-idioma {
+  min-width: 70px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: #e2e8f0;
+}
+
+.barra-nivel {
+  flex: 1;
+  height: 6px;
+  background: #4a5568;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.nivel {
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.nivel-nativo {
+  width: 100%;
+  background: #38a169;
+}
+
+.nivel-avancado {
+  width: 85%;
+  background: #3182ce;
+}
+
+.nivel-intermediario {
+  width: 65%;
+  background: #dd6b20;
+}
+
+.texto-nivel {
+  font-size: 0.8rem;
+  color: #718096;
+  min-width: 80px;
+}
+
+/* ===================== CERTIFICAÇÕES ===================== */
+.secao-certificacoes {
+  margin-bottom: 25px;
+}
+
+.lista-certificacoes {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.item-certificacao {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  background: #2d3748;
+  border-radius: 8px;
+  border-left: 3px solid #38a169;
+}
+
+.data-cert {
+  font-size: 0.85rem;
+  color: #718096;
+  font-weight: 600;
+}
+
+/* ===================== COLUNA DIREITA (CONTEÚDO PRINCIPAL) ===================== */
+.coluna-direita {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* ===================== TÍTULOS PRINCIPAIS ===================== */
+.titulo-secao-principal {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #edf2f7;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 3px solid #6b21a8;
+}
+
+.icone-principal {
+  font-size: 1.3rem;
+  color: #cbd5e0;
+}
+
+/* ===================== TIMELINE DE EXPERIÊNCIA ===================== */
+.timeline-experiencia {
+  position: relative;
+  padding-left: 25px;
+}
+
+.timeline-experiencia::before {
+  content: '';
+  position: absolute;
+  left: 10px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, #6b21a8, #4a5568);
+}
+
+.item-experiencia {
+  position: relative;
+  margin-bottom: 25px;
+}
+
+.marcador-timeline {
+  position: absolute;
+  left: -19px;
+  top: 5px;
+  width: 12px;
+  height: 12px;
+  background: #6b21a8;
+  border-radius: 50%;
+  border: 3px solid #2d3748;
+  box-shadow: 0 0 0 3px #4a5568;
+}
+
+/* ===================== CONTEÚDO DE EXPERIÊNCIA ===================== */
+.conteudo-experiencia {
+  background: #2d3748;
+  padding: 20px;
+  border-radius: 12px;
+  border-left: 4px solid #6b21a8;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.conteudo-experiencia:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.8);
+}
+
+.cabecalho-experiencia {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.cargo {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #edf2f7;
+}
+
+.empresa {
+  font-size: 0.95rem;
+  color: #9f7aea;
+  font-weight: 500;
+}
+
+.periodo {
+  color: #a0aec0;
+  font-size: 0.9rem;
+  margin-bottom: 12px;
+  font-style: italic;
+}
+
+/* ===================== LISTAS E TAGS DE TECNOLOGIA ===================== */
+.responsabilidades {
+  margin: 12px 0;
+  padding-left: 18px;
+}
+
+.responsabilidades li {
+  margin-bottom: 6px;
+  color: #cbd5e0;
+}
+
+.responsabilidades li::marker {
+  color: #9f7aea;
+}
+
+.descricao-simples {
+  color: #cbd5e0;
+  margin: 10px 0;
+}
+
+.tags-tecnologias {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.tag-tech {
+  background: #4a5568;
+  color: #e2e8f0;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+/* ===================== FORMAÇÃO ACADÊMICA ===================== */
+.lista-formacao {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.item-formacao {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #2d3748;
+  padding: 18px;
+  border-radius: 12px;
+  border-left: 4px solid #38a169;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.info-curso {
+  flex: 1;
+}
+
+.nome-curso {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #edf2f7;
+  margin-bottom: 4px;
+}
+
+.instituicao {
+  color: #9f7aea;
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+
+.periodo-curso {
+  color: #a0aec0;
+  font-size: 0.9rem;
+}
+
+/* ===================== BADGES DE STATUS ===================== */
+.status-curso {
+  display: flex;
+  align-items: center;
+}
+
+.badge-concluido,
+.badge-cursando {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.badge-concluido {
+  background: #234e52;
+  color: #a7f3d0;
+}
+
+.badge-cursando {
+  background: #5a3e1b;
+  color: #fcd34d;
+}
+
+/* ===================== PROJETOS DESTACADOS ===================== */
+.grid-projetos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.card-projeto {
+  background: #2d3748;
+  padding: 20px;
+  border-radius: 12px;
+  border-top: 4px solid #dd6b20;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-projeto:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.8);
+}
+
+.nome-projeto {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #edf2f7;
+  margin-bottom: 8px;
+}
+
+.descricao-projeto {
+  color: #cbd5e0;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+/* ===================== TECNOLOGIAS E LINKS DOS PROJETOS ===================== */
+.tecnologias-projeto {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 15px;
+}
+
+.tech-tag {
+  background: #4a5568;
+  color: #e2e8f0;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.links-projeto {
+  display: flex;
+  gap: 10px;
+}
+
+.link-projeto {
+  color: #9f7aea;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 6px 12px;
+  border: 1px solid #9f7aea;
+  border-radius: 6px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.link-projeto:hover {
+  background: #9f7aea;
+  color: #1a202c;
+}
+
+/* ===================== RODAPÉ COM AÇÕES ===================== */
+.rodape {
+  background: linear-gradient(135deg, #1a202c, #2d3748);
+  color: #e2e8f0;
+  padding: 30px;
+  border-radius: 15px;
+  text-align: center;
+}
+
+.acoes-curriculo {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+/* ===================== BOTÕES DE AÇÃO ===================== */
+.btn-acao {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-primario {
+  background: #6b21a8;
+  color: #edf2f7;
+}
+
+.btn-primario:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(107, 33, 168, 0.6);
+}
+
+.btn-secundario {
+  background: transparent;
+  color: #edf2f7;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.btn-secundario:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.icone-btn {
+  font-size: 1rem;
+  color: inherit;
+}
+
+/* ===================== INFORMAÇÕES DO RODAPÉ ===================== */
+.info-rodape {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  padding-top: 15px;
+}
+
+.info-rodape p {
+  margin: 5px 0;
+  opacity: 0.8;
+  color: #a0aec0;
+}
+
+.atualizacao {
+  font-size: 0.85rem;
+  font-style: italic;
+  color: #a0aec0;
+}
+
+/* ===================== RESPONSIVIDADE ===================== */
+@media (max-width: 968px) {
+  .cabecalho {
+    flex-direction: column;
+    text-align: center;
+  }
+  .acoes-curriculo {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    margin: 10px;
+    padding: 15px;
+  }
+  .nome-completo {
+    font-size: 2rem;
+  }
+  .cabecalho {
+    padding: 25px;
+  }
+  .btn-acao {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ===================== ANIMAÇÕES E EFEITOS ESPECIAIS ===================== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.item-experiencia:nth-child(even) .conteudo-experiencia {
+  border-left-color: #38a169;
+}
+
+.item-experiencia:nth-child(odd) .conteudo-experiencia {
+  border-left-color: #3182ce;
+}
+
+.card-projeto:nth-child(3n) {
+  border-top-color: #38a169;
+}
